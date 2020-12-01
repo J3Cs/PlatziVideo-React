@@ -1,14 +1,14 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 
-const UseInitialState = (Api) => {
+const useInitialState = (Api) => {
   const [videos, setVideos] = useState([]);
+  console.log('patas');
   useEffect(() => {
     fetch(Api)
       .then((res) => res.json())
       .then((data) => setVideos(data));
   }, []);
-  return videos;
+  return (videos);
 };
 
-export default UseInitialState;
+export default useInitialState;
