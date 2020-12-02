@@ -21,7 +21,13 @@ const Home = ({ myList, trends, originals }) => {
       )}
       <Categories title='Tendencias'>
         <Carousel>
-          {trends.map((item) => <CarouselItem key={item.id} {...item} />)}
+          {trends.map((item) => (
+            <CarouselItem
+              key={item.id}
+              {...item}
+              isList
+            />
+          ))}
         </Carousel>
       </Categories>
       <Categories title='Originales de Platzi Video'>
