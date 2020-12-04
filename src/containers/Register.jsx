@@ -1,21 +1,63 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { registerRequest } from '../actions/index';
 import '../assets/styles/components/Register.scss';
 
-const Register = () => (
-  <section className='register'>
-    <section className='register__container'>
-      <h2>Regístrate</h2>
-      <form className='register__container--form'>
-        <input className='input' type='text' placeholder='Nombre' />
-        <input className='input' type='text' placeholder='Correo' />
-        <input className='input' type='password' placeholder='Contraseña' />
-        <button type='button' className='button'>Registrarme</button>
-      </form>
-      <Link to='/login'>Iniciar sesión</Link>
+const Register = (props) => {
+  const [form, setValues] = useState({
+    email: '',
+    name: '',
+    password: '',
+  });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.registerRequest(form);
+    props.history.push('/');
+  };
+  const handleInput = (event) => {
+    setValues({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
+  return (
+    <section className='register'>
+      <section className='register__container'>
+        <h2>Regístrate</h2>
+        <form className='register__container--form' onSubmit={handleSubmit}>
+          <input
+            name='name'
+            className='input'
+            type='text'
+            placeholder='Nombre'
+            onChange={handleInput}
+          />
+          <input
+            name='email'
+            className='input'
+            type='text'
+            placeholder='Correo'
+            onChange={handleInput}
+          />
+          <input
+            name='password'
+            className='input'
+            type='password'
+            placeholder='Contraseña'
+            onChange={handleInput}
+          />
+          <button className='button'>Registrarme</button>
+        </form>
+        <Link to='/login'>Iniciar sesión</Link>
+      </section>
     </section>
-  </section>
-);
+  );
+};
 
-export default Register;
+const mapDispatchToProps = {
+  registerRequest,
+};
+export default connect(null, mapDispatchToProps)(Register);
